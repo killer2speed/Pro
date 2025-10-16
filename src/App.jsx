@@ -1,4 +1,3 @@
-'''
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal, Wifi, Globe, Users, Activity, Clock, Zap, TrendingUp, Lock, Shield, CheckCircle, AlertCircle, Cpu, Database, Server } from 'lucide-react';
 import './App.css';
@@ -566,4 +565,4 @@ export default function EFootballChecker() {
     </div>
   );
 }
-'''
+
