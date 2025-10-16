@@ -201,7 +201,7 @@ export default function EFootballChecker() {
   useEffect(() => {
     const updateServerTime = () => {
       const now = new Date();
-      setServerTime(now.toUTCString().match(/(\d{2}:\d{2}:\d{2})/)[0]);
+      setServerTime(now.toUTCString());
     };
     updateServerTime();
     const interval = setInterval(updateServerTime, 1000);
