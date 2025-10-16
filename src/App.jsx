@@ -307,8 +307,10 @@ export default function EFootballChecker() {
     setTerminalLines([]);
     setCurrentStage('Connecting...');
 
-    await addTerminalLineWithTyping('Initiating connection to eFootball™️ servers...');
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await addTerminalLineWithTyping("Initiating connection to eFootball™️ servers...");
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Initial connection delay
+    const analysisDuration = Math.floor(Math.random() * (60 - 45 + 1) + 45) * 1000; // 45-60 seconds
+    const stepDelay = analysisDuration / analysisSteps.length;
 
     const servers = [
       { name: 'KONAMI-EU-CENTRAL-01', ip: '198.51.100.1' },
@@ -360,7 +362,7 @@ export default function EFootballChecker() {
 
     for (const step of analysisSteps) {
       await addTerminalLineWithTyping(step);
-      await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 300));
+      await new Promise(resolve => setTimeout(resolve, stepDelay));
     }
 
     setAnalyzing(false);
@@ -394,7 +396,7 @@ export default function EFootballChecker() {
       recommendation,
     });
     setLastResult(finalLuck);
-    setCooldown(60); // 1 minute cooldown
+    setCooldown(180); // 3 minutes cooldown
 
     setTimeout(() => {
       setShowModal(true);
@@ -430,7 +432,7 @@ export default function EFootballChecker() {
             </div>
             <div className="text-right">
               <div className="text-xs text-green-300">v5.5</div>
-              <div className="text-[10px] text-green-500">PRO</div>
+              <div className="text-[10px] font-bold text-red-500">PRO</div>
             </div>
           </div>
           
