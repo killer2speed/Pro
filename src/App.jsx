@@ -504,14 +504,14 @@ export default function EFootballChecker() {
             <button 
               onClick={() => handleServerCheck('Epic')} 
               disabled={cooldown > 0}
-              className="w-full bg-purple-600/80 text-white font-bold py-3 rounded-md border-2 border-purple-500 hover:bg-purple-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-purple-500/30 animate-glow"
+              className="w-full bg-yellow-600/80 text-white font-bold py-3 rounded-md border-2 border-yellow-500 hover:bg-yellow-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/30 animate-glow"
             >
               <Zap className="w-5 h-5" /> ANALYZE EPIC BOX
             </button>
             <button 
               onClick={() => handleServerCheck('Showtime')} 
               disabled={cooldown > 0}
-              className="w-full bg-cyan-600/80 text-white font-bold py-3 rounded-md border-2 border-cyan-500 hover:bg-cyan-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/30 animate-glow"
+              className="w-full bg-pink-600/80 text-white font-bold py-3 rounded-md border-2 border-pink-500 hover:bg-pink-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-pink-500/30 animate-glow"
             >
               <TrendingUp className="w-5 h-5" /> ANALYZE SHOWTIME BOX
             </button>
