@@ -318,13 +318,22 @@ export default function EFootballChecker() {
     const totalDuration = Math.floor(Math.random() * (60 - 45 + 1) + 45) * 1000; // 45-60 seconds
     const startTime = Date.now();
 
+    const servers = [
+      { name: 'KONAMI-EU-CENTRAL-01', ip: generateRandomIP() },
+      { name: 'KONAMI-US-EAST-03', ip: generateRandomIP() },
+      { name: 'KONAMI-ASIA-SGP-02', ip: generateRandomIP() },
+      { name: 'KONAMI-SA-BRAZIL-01', ip: generateRandomIP() },
+      { name: 'KONAMI-AF-SOUTH-01', ip: generateRandomIP() },
+    ];
+    const randomServer = servers[Math.floor(Math.random() * servers.length)];
+
     const hackingStages = [
       {
         messages: [
-          '> [BREACH] Initializing neural network connection...',
+          
           `> [SCAN] Probing eFootball game servers across ${Math.floor(Math.random() * 15) + 8} regions...`,
           `> [DETECT] Located ${Math.floor(Math.random() * 12) + 5} active game nodes`,
-          `> [TARGET] Primary server: ${generateRandomIP()} | Port: ${Math.floor(Math.random() * 9000) + 1000}`,
+          `> [TARGET] Primary server: ${randomServer.ip} | Port: ${Math.floor(Math.random() * 9000) + 1000}`,
           `> [HANDSHAKE] Establishing encrypted socket tunnel...`,
           `> [SUCCESS] Connection established | Latency: ${Math.floor(Math.random() * 30) + 15}ms`,
         ]
@@ -393,13 +402,11 @@ export default function EFootballChecker() {
     setHackingProgress(100);
     playBeep(1200, 150);
     setConnecting(false);
-    setAnalyzing(true);
+     setAnalyzing(false);
 
-    setCurrentStage('FINALIZING ANALYSIS...');
+    setCurrentStage(\'FINALIZING ANALYSIS...\');
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    setAnalyzing(false);
-    
     const finalLuck = getSmartResult();
     const finalPing = Math.floor(Math.random() * 80) + 20;
     const finalServerPercent = Math.floor(Math.random() * 40) + 60;
@@ -433,9 +440,12 @@ export default function EFootballChecker() {
 
     setTimeout(() => {
       setShowModal(true);
-      setTimeout(() => {
-        window.open('https://t.me/pes224', '_blank');
-      }, 5000);
+      // Auto-redirect to Telegram after 5 seconds if not in maintenance mode
+      if (!isMaintenanceTime()) {
+        setTimeout(() => {
+          window.open(\'https://t.me/pes224\', \'_blank\');
+        }, 5000);
+      }
     }, 1000);
   };
 
@@ -565,20 +575,12 @@ export default function EFootballChecker() {
               <div className={`p-3 text-center rounded-md ${result.recommendation.bg} ${result.recommendation.border} border animate-glow ${result.percent < 60 ? 'animate-shake' : ''}`}>
                 <div className={`text-4xl mb-2 ${result.percent >= 75 ? 'animate-bounce' : 'animate-pulse'}`}>{result.recommendation.icon}</div>
                 <div className={`text-lg font-bold ${result.recommendation.color}`}>{result.recommendation.text}</div>
-                <div className="text-xs text-green-300 mt-1">{result.recommendation.subtext}</div>
-              </div>
-
-              {isMaintenanceTime() && (
-                <button 
-                  onClick={openTelegram}
-                  className="mt-4 w-full bg-blue-600/80 text-white font-bold py-2 rounded-md border-2 border-blue-500 hover:bg-blue-500 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 animate-glow"
-                >
-                  Join Telegram Channel
-                </button>
-              )}
-
-              <button 
-                onClick={() => { setShowModal(false); setResult(null); }} 
+                <div className="text-xs text-green-300 mt-1">{result.recommendation              <button 
+                onClick={openTelegram}
+                className="mt-4 w-full bg-blue-600/80 text-white font-bold py-2 rounded-md border-2 border-blue-500 hover:bg-blue-500 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 animate-glow"
+              >
+                Join Telegram Channel
+              </button>          onClick={() => { setShowModal(false); setResult(null); }} 
                 className="mt-4 w-full bg-gray-700/80 text-white font-bold py-2 rounded-md border-2 border-gray-600 hover:bg-gray-600 transition-all duration-300"
               >
                 CLOSE
