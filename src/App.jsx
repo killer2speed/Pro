@@ -102,7 +102,8 @@ export default function EFootballChecker() {
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
         setUserIP(data.ip || 'Unknown');
-        setUserCountry(`${data.country_name} ${data.country_code}`);
+        const countryData = allCountries.find(c => c.code === data.country_code);
+        setUserCountry(`${data.country_name} ${countryData ? countryData.emoji : ''}`);
       } catch (error) {
         const randomIP = `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
         setUserIP(randomIP);
