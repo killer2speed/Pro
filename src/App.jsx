@@ -404,7 +404,7 @@ export default function EFootballChecker() {
     setConnecting(false);
      setAnalyzing(false);
 
-    setCurrentStage(\'FINALIZING ANALYSIS...\');
+    setCurrentStage('FINALIZING ANALYSIS...');
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     const finalLuck = getSmartResult();
