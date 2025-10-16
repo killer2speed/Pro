@@ -305,66 +305,98 @@ export default function EFootballChecker() {
     setBoxType(type);
     setConnecting(true);
     setResult(null);
+    setServerPercent(0);
+    setPing(0);
     setTerminalLines([]);
-    setCurrentStage('Connecting...');
-
-    await addTerminalLineWithTyping("Initiating connection to eFootball™️ servers...");
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Initial connection delay
-    const analysisDuration = Math.floor(Math.random() * (60 - 45 + 1) + 45) * 1000; // 45-60 seconds
-    const stepDelay = analysisDuration / analysisSteps.length;
-
-    const servers = [
-      { name: 'KONAMI-EU-CENTRAL-01', ip: '198.51.100.1' },
-      { name: 'KONAMI-US-EAST-03', ip: '203.0.113.5' },
-      { name: 'KONAMI-ASIA-SGP-02', ip: '192.0.2.8' },
-    ];
-    const randomServer = servers[Math.floor(Math.random() * servers.length)];
-
-    await addTerminalLineWithTyping(`Target server: ${randomServer.name} (${randomServer.ip})`);
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    setCurrentStage('Bypassing security...');
     setHackingProgress(0);
-    const progressInterval = setInterval(() => {
-      setHackingProgress(prev => {
-        const next = prev + Math.random() * 10;
-        if (next >= 100) {
-          clearInterval(progressInterval);
-          return 100;
-        }
-        return next;
-      });
-    }, 200);
+    setAnalyzing(false);
+    setShowResultAnimation(false);
 
-    await addTerminalLineWithTyping('Bypassing firewall... [OK]', 'text-cyan-400');
-    await new Promise(resolve => setTimeout(resolve, 800));
-    await addTerminalLineWithTyping('Authenticating with game server... [OK]', 'text-cyan-400');
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    await addTerminalLineWithTyping('Injecting packet analysis script... [OK]', 'text-cyan-400');
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    setCurrentStage('INITIATING BREACH PROTOCOL...');
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    clearInterval(progressInterval);
+    const totalDuration = Math.floor(Math.random() * (60 - 45 + 1) + 45) * 1000; // 45-60 seconds
+    const startTime = Date.now();
+
+    const hackingStages = [
+      {
+        messages: [
+          '> [BREACH] Initializing neural network connection...',
+          `> [SCAN] Probing eFootball game servers across ${Math.floor(Math.random() * 15) + 8} regions...`,
+          `> [DETECT] Located ${Math.floor(Math.random() * 12) + 5} active game nodes`,
+          `> [TARGET] Primary server: ${generateRandomIP()} | Port: ${Math.floor(Math.random() * 9000) + 1000}`,
+          `> [HANDSHAKE] Establishing encrypted socket tunnel...`,
+          `> [SUCCESS] Connection established | Latency: ${Math.floor(Math.random() * 30) + 15}ms`,
+        ]
+      },
+      {
+        messages: [
+          '> [FIREWALL] Detecting security layers...',
+          `> [IDENTIFY] Firewall: ${['Fortinet FortiGate Pro', 'Cisco ASA 5585-X', 'pfSense Enterprise', 'Cloudflare Magic Transit'][Math.floor(Math.random() * 4)]}`,
+          `> [EXPLOIT] Injecting polymorphic bypass packets...`,
+          `> [SCAN] Port range [${Math.floor(Math.random() * 9000) + 1000}-${Math.floor(Math.random() * 9000) + 1000}] | Status: SCANNING`,
+          `> [BREACH] Port ${Math.floor(Math.random() * 9000) + 1000} OPEN | Vulnerability detected`,
+          `> [BYPASS] Firewall penetration: COMPLETE ✓`,
+          `> [STEALTH] Masking traffic signature...`,
+        ]
+      },
+      {
+        messages: [
+          '> [CRYPTO] Encryption layer detected...',
+          `> [ANALYZE] Protocol: AES-256-GCM + RSA-4096 + SHA-512`,
+          `> [CRACK] Generating quantum decryption keys...`,
+          `> [KEY] Hash: 0x${generateRandomHash()}`,
+          `> [HANDSHAKE] Performing RSA key exchange...`,
+          `> [TUNNEL] SSL/TLS secure channel established ✓`,
+          `> [VERIFY] Certificate chain validated`,
+        ]
+      },
+      {
+        messages: [
+          '> [DATABASE] Accessing eFootball game database...',
+          `> [AUTH] Token: Bearer ${generateRandomHash().substring(0, 12)}`,
+          `> [SESSION] ID: ${generateRandomHash().substring(0, 8).toUpperCase()}`,
+          `> [QUERY] SELECT * FROM luck_algorithms WHERE box_type="${type}"`,
+          `> [RESPONSE] 200 OK | ${Math.floor(Math.random() * 3000) + 1000} records retrieved`,
+          `> [METRICS] Reading real-time server load data...`,
+          `> [SYNC] Synchronizing with game master server...`,
+        ]
+      },
+      {
+        messages: [
+          `> [ANALYZE] Processing ${type} BOX probability matrices...`,
+          `> [FETCH] Downloading luck algorithm parameters...`,
+          `> [COMPUTE] Analyzing ${Math.floor(Math.random() * 5000) + 2000} data points`,
+          `> [PREDICT] Calculating optimal box opening window...`,
+          `> [CORRELATE] Cross-referencing with live player data...`,
+          `> [ML] Running machine learning prediction model...`,
+          `> [COMPLETE] Data analysis: FINISHED ✓`,
+        ]
+      }
+    ];
+
+    const stageTime = totalDuration / hackingStages.length;
+
+    for (let i = 0; i < hackingStages.length; i++) {
+      const stage = hackingStages[i];
+      
+      for (let j = 0; j < stage.messages.length; j++) {
+        const elapsed = Date.now() - startTime;
+        const progress = (elapsed / totalDuration) * 100;
+        setHackingProgress(Math.min(progress, 99));
+        
+        await addTerminalLineWithTyping(stage.messages[j]);
+        await new Promise(resolve => setTimeout(resolve, stageTime / stage.messages.length - 500));
+      }
+    }
+
     setHackingProgress(100);
-    playSuccessSound();
-    await addTerminalLineWithTyping('Connection successful! Access granted.', 'text-yellow-400');
-    
+    playBeep(1200, 150);
     setConnecting(false);
     setAnalyzing(true);
-    setCurrentStage('Analyzing server data...');
 
-    const analysisSteps = [
-      'Reading server packet headers...',
-      'Analyzing player drop rates...',
-      'Correlating with regional server load...',
-      'Checking for active promotions...',
-      'Simulating 1000 box draws...',
-      'Finalizing luck analysis...'
-    ];
-
-    for (const step of analysisSteps) {
-      await addTerminalLineWithTyping(step);
-      await new Promise(resolve => setTimeout(resolve, stepDelay));
-    }
+    setCurrentStage('FINALIZING ANALYSIS...');
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     setAnalyzing(false);
     
